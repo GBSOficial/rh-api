@@ -13,6 +13,10 @@
         {
             "url": "http://localhost:3000/v1",
             "description": "API de Test"
+        },
+        {
+            "url": "rh-api-k7s3.onrender.com:10000/v1",
+            "description": "API Produção"
         }
     ],
     "paths": {
