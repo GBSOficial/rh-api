@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  password String
+  employe Employee[]
+}
+
+model Employee{
+  id Int @id @default(autoincrement())
+  name String
+  cpf  String
+  rg   String
+  pis  String
+  departament String
+  contract String
+  wage String
+  status Boolean
+  vouchers_transportation Boolean
+  salary_advance Boolean
+  userId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dates Dates[]
+  education Education[]
+  contact Contact[]
+  banking Banking[]
+  address Address[]
+
+}
+
+model Dates{
+  id Int @id @default(autoincrement())
+  birthDate String              // Data de Nascimento
+  homeTraining String           // Inicio Treinamento
+  admissionDate String          // Data de Admissão
+  dismissalDate String          // Data Demissional
+  admissionExam String          // Exame Admissional
+  dismissalExam String          // Exame Demissional
+  safeInternshipDate String     // Data Seguro de Estagio
+  contractEndDate String        // Data Termino de Contrato
+  interviewOpinion String         // parecer a entrevista
+  employeeId Int
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}
+
+model Education{
+  id Int @id @default(autoincrement())
+  educationLevel String   // Nivel do curso (Medio,Superiror)
+  course String           // Curso
+ employeeId Int
+ employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}
+
+model Contact{
+  id Int @id @default(autoincrement())
+  telePhone String        // Telefone
+  cellPhone String        // Celular
+  email String            // Email
+  employeeId Int
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}
+
+
+model Banking{
+  id Int @id @default(autoincrement())
+  bank String             // Banco
+  agency String           // Agencia
+  account String          // Conta
+  accountType String      // Tipo da Conta
+  employeeId Int
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}
+
+model Address{
+  id Int @id @default(autoincrement())
+  country String          // Pais
+  city String             // Cidade
+  neighborhood String     // Bairro
+  road String             // Rua
+  zipCode String          // Cep
+  employeeId Int
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}

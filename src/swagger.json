@@ -1,0 +1,1587 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "API de gerenciamento mult-tarefas",
+        "description": "Essa API tem como objetivo gerenciar todos os dados.",
+        "termsOfService": "",
+        "contact": {
+            "email": "contato@gbsoficial.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/v1",
+            "description": "API de Test"
+        }
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Registro de usuario",
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name": "Gabriel",
+                                        "email": "biel@email.com",
+                                        "password": "123456789"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Product Already exists!"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "summary": "Login do usuario",
+                "description": "",
+                "tags": [
+                    "Users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Login"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "email": "biel@email.com",
+                                        "password": "123456789"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Login"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Product Already exists!"
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "summary": "Obter usuário por ID",
+                "description": "",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "bearer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Login"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Product Already exists!"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Atualizar o usuario",
+                "description": "",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name": "Gabriel",
+                                        "email": "biel@email.com",
+                                        "password": "123456789"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Product Already exists!"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar usuário",
+                "description": "",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Usuário deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+            }
+        },
+            "/funcionario": {
+                "post": {
+                    "tags": [
+                        "Employee"
+                    ],
+                    "summary": "Registro de funcionario",
+                    "description": "",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Employee"
+                                },
+                                "examples": {
+                                    "user": {
+                                        "value": {
+                                                "name": "test5",
+                                                "cpf": "000.000.000-00",
+                                                "rg": "0000000-0",
+                                                "pis": "000000000-00",
+                                                "departament": "RH",
+                                                "contract": "CLT",
+                                                "wage": "1.800",
+                                                "status": true,
+                                                "vouchers_transportation": true,
+                                                "salary_advance": true,
+                                                "userId": 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/Employee"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Employee Already exists!"
+                        }
+                    }
+                }
+            },
+            "/funcionario/": {
+                "get": {
+                    "summary": "Obter a lista de funcionario",
+                    "description": "",
+                    "tags": [
+                        "Employee"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Employee"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Product Already exists!"
+                        }
+                    }
+                }
+            },
+            "/funcionario/{id}": {
+                "get": {
+                    "summary": "Obter funcionario por ID",
+                    "description": "",
+                    "tags": [
+                        "Employee"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID User",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/Employee"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Product Already exists!"
+                        }
+                    }
+                },
+            "patch": {
+                "summary": "Atualizar o funcionario",
+                "description": "",
+                "tags": [
+                    "Employee"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name": "Gabriel",
+                                        "email": "biel@email.com",
+                                        "password": "123456789"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Product Already exists!"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar funcionario",
+                "description": "",
+                "tags": [
+                    "Employee"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Funcionario deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Funcionario não encontrado"
+                    }
+                }
+            }
+        },
+        "/education": {
+            "post": {
+                "tags": [
+                    "Education"
+                ],
+                "summary": "Registro de dados da educação do funcionario",
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Education"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "educationLevel": "Test",
+                                        "course": "Test",
+                                        "employeeId": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Education"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Education Already exists!"
+                    }
+                }
+            }
+        },
+        "/education/": {
+            "get": {
+                "summary": "Obter a lista dados da educação do funcionario",
+                "description": "",
+                "tags": [
+                    "Education"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Education"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Product Already exists!"
+                    }
+                }
+            }
+        },
+          "/education/{id}": {
+                "get": {
+                    "summary": "Obter dados da educação do funcionario por ID",
+                    "description": "",
+                    "tags": [
+                        "Education"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID User",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "items": {
+                                            "$ref": "#/components/schemas/Education"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Education Already exists!"
+                        }
+                    }
+                },
+            "patch": {
+                "summary": "Atualizar os dados da educação do funcionario",
+                "description": "",
+                "tags": [
+                    "Education"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Education"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "educationLevel": "Test",
+                                        "course": "Test"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Education"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Education Already exists!"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar dados da educação do funcionario",
+                "description": "",
+                "tags": [
+                    "Education"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Education deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Education não encontrado"
+                    }
+                }
+            }
+        },
+        "/dates": {
+            "post": {
+                "tags": [
+                    "Dates"
+                ],
+                "summary": "Registro de dados da data do funcionario",
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Dates"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "birthDate": "01-01-2020",
+                                        "homeTraining": "01-01-2020",
+                                        "admissionDate": "01-01-2020",
+                                        "dismissalDate": "01-01-2020",
+                                        "admissionExam": "01-01-2020",
+                                        "dismissalExam": "01-01-2020",
+                                        "safeInternshipDate": "01-01-2020",
+                                        "contractEndDate": "01-01-2020",
+                                        "interviewOpinion": "Excelente candidato",
+                                        "employeeId": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Dates"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dates Already exists!"
+                    }
+                }
+            }
+        },
+        "/dates/": {
+            "get": {
+                "summary": "Obter a lista dados da datas do funcionario",
+                "description": "",
+                "tags": [
+                    "Dates"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Dates"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dates Already exists!"
+                    }
+                }
+            }
+        },
+        "/dates/{id}": {
+            "get": {
+                "summary": "Obter dados da data do funcionario por ID",
+                "description": "",
+                "tags": [
+                    "Dates"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Dates"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dates Already exists!"
+                    }
+                }
+            },
+        "patch": {
+            "summary": "Atualizar os dados da data do funcionario",
+            "description": "",
+            "tags": [
+                "Dates"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "description": "ID User",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Dates"
+                        },
+                        "examples": {
+                            "user": {
+                                "value": {
+                                    "birthDate": "01-01-2020",
+                                    "homeTraining": "01-01-2020",
+                                    "admissionDate": "01-01-2020",
+                                    "dismissalDate": "01-01-2020",
+                                    "admissionExam": "01-01-2020",
+                                    "dismissalExam": "01-01-2020",
+                                    "safeInternshipDate": "01-01-2020",
+                                    "contractEndDate": "01-01-2020",
+                                    "interviewOpinion": "Excelente candidato"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "items": {
+                                    "$ref": "#/components/schemas/Dates"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Dates Already exists!"
+                }
+            }
+        },
+        "delete": {
+            "summary": "Deletar dados da data do funcionario",
+            "description": "",
+            "tags": [
+                "Dates"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "responses": {
+                "204": {
+                    "description": "Data deletada com sucesso"
+                },
+                "404": {
+                    "description": "Data não encontrado"
+                }
+            }
+        }
+    },
+    "/contact": {
+        "post": {
+            "tags": [
+                "Contact"
+            ],
+            "summary": "Registro de dados de contato do funcionario",
+            "description": "",
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Contact"
+                        },
+                        "examples": {
+                            "user": {
+                                "value": {
+                                    "telePhone": "(17)0000-0000",
+                                    "cellPhone": "(17)0000-0000",
+                                    "email": "test@email.com",
+                                    "employeeId": 1
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "items": {
+                                    "$ref": "#/components/schemas/Contact"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Contact Already exists!"
+                }
+            }
+        }
+    },
+    "/contact/": {
+        "get": {
+            "summary": "Obter a lista dados de contato do funcionario",
+            "description": "",
+            "tags": [
+                "Contact"
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Contact"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Contact Already exists!"
+                }
+            }
+        }
+    },
+    "/contact/{id}": {
+        "get": {
+            "summary": "Obter dados da contact do funcionario por ID",
+            "description": "",
+            "tags": [
+                "Contact"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "description": "ID User",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "items": {
+                                    "$ref": "#/components/schemas/Contact"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Contact Already exists!"
+                }
+            }
+        },
+    "patch": {
+        "summary": "Atualizar os dados da Contact do funcionario",
+        "description": "",
+        "tags": [
+            "Contact"
+        ],
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "description": "ID User",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        ],
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/Contact"
+                    },
+                    "examples": {
+                        "user": {
+                            "value": {
+                                "telePhone": "(17)0000-0000",
+                                "cellPhone": "(17)0000-0000",
+                                "email": "test@email.com"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/components/schemas/Contact"
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Contact Already exists!"
+            }
+        }
+    },
+    "delete": {
+        "summary": "Deletar dados da contact do funcionario",
+        "description": "",
+        "tags": [
+            "Contact"
+        ],
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        ],
+        "responses": {
+            "204": {
+                "description": "Contact deletada com sucesso"
+            },
+            "404": {
+                "description": "Contact não encontrado"
+            }
+        }
+    }
+},
+"/banking": {
+    "post": {
+        "tags": [
+            "Banking"
+        ],
+        "summary": "Registro de dados de banking do funcionario",
+        "description": "",
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/Banking"
+                    },
+                    "examples": {
+                        "user": {
+                            "value": {
+                                "bank": "Caixa",
+                                "agency": "1234",
+                                "account": "013",
+                                "accountType": "Corrente",
+                                "employeeId": 1
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/components/schemas/Banking"
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Banking Already exists!"
+            }
+        }
+    }
+},
+"/banking/": {
+        "get": {
+            "summary": "Obter a lista dados de banking do funcionario",
+            "description": "",
+            "tags": [
+                "Banking"
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Banking"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Banking Already exists!"
+                }
+            }
+        }
+    },
+    "/banking/{id}": {
+        "get": {
+            "summary": "Obter dados da banking do funcionario por ID",
+            "description": "",
+            "tags": [
+                "Banking"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "description": "ID User",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "items": {
+                                    "$ref": "#/components/schemas/Banking"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Banking Already exists!"
+                }
+            }
+        },
+    "patch": {
+        "summary": "Atualizar os dados da banking do funcionario",
+        "description": "",
+        "tags": [
+            "Banking"
+        ],
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "description": "ID User",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        ],
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/Banking"
+                    },
+                    "examples": {
+                        "user": {
+                            "value": {
+                                "bank": "Caixa",
+                                "agency": "1234",
+                                "account": "013",
+                                  "accountType": "Corrente"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/components/schemas/Banking"
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Banking Already exists!"
+            }
+        }
+    },
+    "delete": {
+        "summary": "Deletar dados da banking do funcionario",
+        "description": "",
+        "tags": [
+            "Banking"
+        ],
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        ],
+        "responses": {
+            "204": {
+                "description": "Banking deletada com sucesso"
+            },
+            "404": {
+                "description": "Banking não encontrado"
+            }
+        }
+    }
+},
+"/address": {
+    "post": {
+        "tags": [
+            "Address"
+        ],
+        "summary": "Registro de dados de address do funcionario",
+        "description": "",
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    "examples": {
+                        "user": {
+                            "value": {
+                                "country": "Brasil",
+                                "city": "São jose do rio preto",
+                                "neighborhood": "Centro",
+                                  "road": "Centro",
+                                  "zipCode": "000000-000",
+                                "employeeId": 1
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/components/schemas/Address"
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Address Already exists!"
+            }
+        }
+    }
+},
+"/address/": {
+        "get": {
+            "summary": "Obter a lista dados de address do funcionario",
+            "description": "",
+            "tags": [
+                "Address"
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Address"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Address Already exists!"
+                }
+            }
+        }
+    },
+    "/address/{id}": {
+        "get": {
+            "summary": "Obter dados da address do funcionario por ID",
+            "description": "",
+            "tags": [
+                "Address"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "description": "ID User",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "OK",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "items": {
+                                    "$ref": "#/components/schemas/Address"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Address Already exists!"
+                }
+            }
+        },
+    "patch": {
+        "summary": "Atualizar os dados da address do funcionario",
+        "description": "",
+        "tags": [
+            "Address"
+        ],
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "description": "ID User",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        ],
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    "examples": {
+                        "user": {
+                            "value": {
+                                "country": "Brasil",
+                                "city": "São jose do rio preto",
+                                "neighborhood": "Centro",
+                                  "road": "Centro",
+                                  "zipCode": "000000-000"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/components/schemas/Address"
+                            }
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Address Already exists!"
+            }
+        }
+    },
+    "delete": {
+        "summary": "Deletar dados da address do funcionario",
+        "description": "",
+        "tags": [
+            "Address"
+        ],
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        ],
+        "responses": {
+            "204": {
+                "description": "Address deletada com sucesso"
+            },
+            "404": {
+                "description": "Address não encontrado"
+            }
+        }
+    }
+}
+
+
+
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Login": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Employee":{
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "cpf":{
+                        "type":"string"
+                    },
+                    "rg": {
+                        "type": "string"
+                    },
+                    "pis": {
+                        "type": "string"
+                    },
+                    "departament":{
+                        "type":"string"
+                    },
+                    "contract": {
+                        "type": "string"
+                    },
+                    "wage":{
+                        "type":"string"
+                    },
+                    "status":{
+                        "type":"boolean"
+                    },
+                    "vouchers_transportation":{
+                        "type":"boolean"
+                    },
+                    "salary_advance":{
+                        "type":"boolean"
+                    },
+                    "userId":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Education": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "educationLevel": {
+                        "type": "string"
+                    },
+                    "course": {
+                        "type": "string"
+                    },
+                    "employeeId":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Dates": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "birthDate": {
+                        "type": "string"
+                    },
+                    "homeTraining": {
+                        "type": "string"
+                    },
+                    "admissionDate":{
+                        "type": "string"
+                    },
+                    "dismissalDate":{
+                        "type": "string"
+                    },
+                    "admissionExam":{
+                        "type": "string"
+                    },
+                    "dismissalExam":{
+                        "type": "string"
+                    },
+                    "safeInternshipDate":{
+                        "type": "string"
+                    },
+                    "contractEndDate":{
+                        "type": "string"
+                    },
+                    "interviewOpinion":{
+                        "type": "string"
+                    },
+                    "employeeId":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Contact": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "telePhone": {
+                        "type": "string"
+                    },
+                    "cellPhone": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "employeeId":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Banking": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "bank": {
+                        "type": "string"
+                    },
+                    "agency": {
+                        "type": "string"
+                    },
+                    "account": {
+                        "type": "string"
+                    },
+                    "accountType": {
+                        "type": "string"
+                    },
+                    "employeeId":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Address": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "neighborhood": {
+                        "type": "string"
+                    },
+                    "road": {
+                        "type": "string"
+                    },
+                    "zipCode": {
+                        "type": "string"
+                    },
+                    "employeeId":{
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
