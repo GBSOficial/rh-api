@@ -4,7 +4,7 @@ export const userSchema = z.object({
     id: z.number().positive(),
     name: z.string().min(1),
     email: z.string().email('Email inválido').min(1),
-    password: z.string().min(8, 'Senha deve ter pelo menos 8 caracteres')
+    password: z.string().min(4, 'Senha deve ter pelo menos 4 caracteres')
 })
 
 export type TUser = z.infer<typeof userSchema>;
