@@ -15,7 +15,7 @@
             "description": "API de Test"
         },
         {
-            "url": "http://rh-api-k7s3.onrender.com/v1",
+            "url": "https://rh-api-k7s3.onrender.com/v1",
             "description": "API Produção"
         }
     ],
