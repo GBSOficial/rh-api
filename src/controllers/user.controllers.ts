@@ -18,6 +18,16 @@ export class UserControllers {
     return res.status(200).json(data);
   }
 
+  async findMany(req: Request, res: Response) {
+    const userServices = new UserServices();
+
+
+    const data = await userServices.findMany();
+
+    return res.status(200).json(data);
+
+  }
+
   async getUser(req: Request, res: Response): Promise<Response> {
     const userServices = new UserServices();
 

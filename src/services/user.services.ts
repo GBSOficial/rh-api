@@ -2,6 +2,7 @@ import { number } from "zod";
 import { prisma } from "../database/prisma";
 import { AppError } from "../errors/appError";
 import {
+  TUser,
   TUserLoginReturn,
   TUserLoginbody,
   TUserRegisterBody,
@@ -40,6 +41,13 @@ export class UserServices {
 
     return { accessToken: token, user: userReturnSchema.parse(user) };
   }
+
+  async findMany(): Promise<TUser[]>{
+    const data = await prisma.user.findMany();
+
+    return data
+  }
+
   async getUser(id: number): Promise<TUserReturn> {
     const user = await prisma.user.findFirst({ where: { id } });
 

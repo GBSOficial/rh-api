@@ -64,6 +64,33 @@
                 }
             }
         },
+        "/user/": {
+            "get": {
+                "summary": "Obter a lista de usuarios",
+                "description": "",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User Already exists!"
+                    }
+                }
+            }
+        },
         "/user/login": {
             "post": {
                 "summary": "Login do usuario",
@@ -117,17 +144,6 @@
                 "security": [
                     {
                         "bearerAuth": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "Authorization",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "bearer"
-                        }
                     }
                 ],
                 "responses": {
